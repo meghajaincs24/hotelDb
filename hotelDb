@@ -20,7 +20,7 @@ CREATE TABLE ROOM (
     room_no INT,
     type VARCHAR(20),
     capacity INT CHECK (capacity > 0),
-    price DECIMAL(10,2) CHECK (price >= 0),
+    price_per_night DECIMAL(10,2) CHECK (price_per_night >= 0),
     PRIMARY KEY (hotel_id, room_no),
     FOREIGN KEY (hotel_id)
         REFERENCES HOTEL(hotel_id)
@@ -33,7 +33,7 @@ CREATE TABLE RESERVATION (
     room_no INT,
     check_in DATE NOT NULL,
     check_out DATE NOT NULL,
-    status VARCHAR(20),
+    booking_status VARCHAR(20),
     CHECK (check_out > check_in),
     FOREIGN KEY (guest_id)
         REFERENCES GUEST(guest_id),

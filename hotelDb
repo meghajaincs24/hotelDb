@@ -1,5 +1,5 @@
-create database if not exists HotelDb;
-use HotelDb;
+CREATE DATABASE IF NOT EXISTS HotelDb;
+USE HotelDb;
 
 CREATE TABLE GUEST (
     guest_id INT PRIMARY KEY,
@@ -24,7 +24,6 @@ CREATE TABLE ROOM (
     PRIMARY KEY (hotel_id, room_no),
     FOREIGN KEY (hotel_id)
         REFERENCES HOTEL(hotel_id)
-        ON DELETE CASCADE
 );
 
 CREATE TABLE RESERVATION (
@@ -32,9 +31,10 @@ CREATE TABLE RESERVATION (
     guest_id INT,
     hotel_id INT,
     room_no INT,
-    check_in DATE,
-    check_out DATE,
+    check_in DATE NOT NULL,
+    check_out DATE NOT NULL,
     status VARCHAR(20),
+    CHECK (check_out > check_in),
     FOREIGN KEY (guest_id)
         REFERENCES GUEST(guest_id),
     FOREIGN KEY (hotel_id, room_no)
@@ -43,7 +43,7 @@ CREATE TABLE RESERVATION (
 
 CREATE TABLE PAYMENT (
     payment_id INT PRIMARY KEY,
-    reservation_id INT,
+    reservation_id INT UNIQUE,
     date DATE,
     payment_mode VARCHAR(20),
     amount DECIMAL(10,2) CHECK (amount >= 0),
@@ -86,3 +86,4 @@ INSERT INTO PAYMENT VALUES
 (5003, 1003, '2025-03-01', 'Cash', 13500),
 (5004, 1004, '2025-03-10', 'Card', 7000),
 (5005, 1005, '2025-04-01', 'UPI', 18000);
+

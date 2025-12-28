@@ -46,7 +46,7 @@ CREATE TABLE PAYMENT (
     reservation_id INT UNIQUE,
     date DATE,
     payment_mode VARCHAR(20),
-    amount_paid DECIMAL(10,2) CHECK (amount >= 0),
+    amount_paid DECIMAL(10,2) CHECK (amount_paid >= 0),
     FOREIGN KEY (reservation_id)
         REFERENCES RESERVATION(reservation_id)
         ON DELETE CASCADE
